@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>商品詳細 — Anazon</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/data.js"></script>
+  <script src="js/common.js"></script>
+</head>
+<body>
+
+<div id="header-mount"></div>
+
+<!-- ====================================================
+     思い出モーダル: カートに追加しようとしたときに表示
+     ==================================================== -->
+<div class="modal-ov" id="memModal">
+  <div class="modal-box">
+    <div class="modal-hd">
+      <h3>⚠️ ちょっと待って！！！</h3>
+      <button class="mx" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-bd">
+      <div class="frame" id="modal-frame">
+        <img id="modal-photo" src="" alt="思い出写真"
+             onerror="document.getElementById('modal-frame').classList.add('noph')">
+        <div class="ph"><span>📸</span><strong>思い出写真</strong><small>ここに写真が表示されます</small></div>
+      </div>
+      <h4 id="modal-title">本当に注文しますか？<br>その前にこの写真を見てください！</h4>
+      <p id="modal-body">大切な思い出です。注文する前に、少しだけ立ち止まって振り返ってみてください。</p>
+      <p class="modal-timer" id="modal-timer">※ボタンが3秒後に有効になります…</p>
+    </div>
+    <div class="modal-ft">
+      <button class="btn-cancel" onclick="closeModal()">やっぱりやめる 😢</button>
+      <button class="btn-dismiss" id="btn-dismiss" disabled onclick="doAddToCart()">
+        わかった、それでも注文する →
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+  <!-- パンくずリスト -->
+  <p style="font-size:13px; color:#999; margin-bottom:12px;">
+    <a href="index.html" style="color:var(--link)">Anazon</a> ›
+    <span id="bc-cat">カテゴリ</span> ›
+    <span id="bc-name">商品名</span>
+  </p>
+
+  <!-- ====================================================
+       商品詳細メインエリア
+       ==================================================== -->
+  <div class="det-wrap mb30">
+
+    <!-- 画像 -->
+    <div class="det-img-col">
+      <div class="det-main-img">
+        <img id="det-img" src="" alt="">
+      </div>
+    </div>
+
+    <!-- 商品情報 -->
+    <div class="det-info">
+      <p class="det-category" id="det-cat"></p>
+      <h1 class="det-title" id="det-title"></h1>
+      <div class="det-stars">
+        <span class="stars" id="det-stars"></span>
+        <span id="det-rating"></span>
+        <span class="rev-cnt" id="det-revcnt"></span>
+      </div>
+      <div class="det-price-box">
+        <p class="det-price-label">価格：</p>
+        <span class="det-price" id="det-price"></span>
+        <span class="det-orig" id="det-orig"></span>
+        <span class="det-disc" id="det-disc"></span>
+      </div>
+      <p class="det-stock" id="det-stock"></p>
+      <p class="det-desc" id="det-desc"></p>
+      <ul class="det-feats" id="det-feats"></ul>
+    </div>
+
+    <!-- 買い物ボックス -->
+    <div class="buy-box">
+      <p class="buy-box-price" id="bb-price"></p>
+      <p class="buy-box-delivery">✅ 明日中にお届け（プライム会員）</p>
+      <button class="btn-cart" id="btn-add-cart" onclick="openModal()">🛒 カートに追加</button>
+      <button class="btn-buynow" id="btn-buy-now" onclick="openModal()">⚡ 今すぐ買う</button>
+      <p class="buy-box-secure" style="margin-top:10px; font-size:12px; color:#565959;">
+        🔒 安全な決済 &nbsp;|&nbsp; 返品不可
+      </p>
+      <hr style="margin: 12px 0; border-color:#EAEDED">
+      <p style="font-size:12px; color:#565959;">出品者: <a href="#" style="color:var(--link)">Anazon直営店</a></p>
+    </div>
+  </div>
+
+  <!-- ====================================================
+       📸 思い出広告: サイドっぽいバナー
+       ==================================================== -->
+  <div class="mem-banner mb30">
+    <div class="mem-banner-hd">
+      <h3>💡「この商品を見た人は思い出のことも考えています」</h3>
+      <span class="sp-tag">スポンサー</span>
+    </div>
+    <div class="mem-banner-body">
+      <div class="mem-banner-photos">
+        <div class="mem-banner-photo">
+          <div class="frame" id="pb0">
+            <img src="images/memories/photo4.jpg" alt="思い出④"
+                 onerror="document.getElementById('pb0').classList.add('noph')">
+            <div class="ph"><span>📸</span><small>photo4.jpg</small></div>
+          </div>
+          <p>あの頃の思い出</p>
+        </div>
+        <div class="mem-banner-photo">
+          <div class="frame" id="pb1">
+            <img src="images/memories/photo5.jpg" alt="思い出⑤"
+                 onerror="document.getElementById('pb1').classList.add('noph')">
+            <div class="ph"><span>📸</span><small>photo5.jpg</small></div>
+          </div>
+          <p>宝物の一枚</p>
+        </div>
+      </div>
+      <div class="mem-banner-copy">
+        <h2>🛒 注文する前に<br>一呼吸おこう</h2>
+        <p>
+          贈り物、本当にこれでいいですか？<br>
+          まだ変更できますよ。上のカテゴリから<br>
+          もっとよいものが見つかるかも。<br><br>
+          <strong>（いや、なんでもいいので贈ってください）</strong>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====================================================
+       カスタマーレビュー
+       ==================================================== -->
+  <div class="reviews-section mb30">
+    <div class="sec-hd">
+      <h2 class="sec-title">⭐ カスタマーレビュー</h2>
+    </div>
+    <div id="reviews-mount"></div>
+  </div>
+
+  <!-- ====================================================
+       📸 思い出広告: スポンサード
+       ==================================================== -->
+  <div class="mem-sponsored mb30">
+    <p class="sp-label">スポンサー</p>
+    <h3>🎁「この商品と一緒によく購入されている思い出」</h3>
+    <div class="sp-grid">
+      <div class="sp-item">
+        <div class="frame" id="psp0">
+          <img src="images/memories/photo7.jpeg" alt="思い出⑦"
+               onerror="document.getElementById('psp0').classList.add('noph')">
+          <div class="ph"><span>📸</span><small>photo7.jpeg</small></div>
+        </div>
+        <p class="cap">みんなで笑った日</p>
+        <span class="sp-t">スポンサー</span>
+      </div>
+      <div class="sp-item">
+        <div class="frame" id="psp1">
+          <img src="images/memories/photo8.jpeg" alt="思い出⑧"
+               onerror="document.getElementById('psp1').classList.add('noph')">
+          <div class="ph"><span>📸</span><small>photo8.jpeg</small></div>
+        </div>
+        <p class="cap">かけがえない時間</p>
+        <span class="sp-t">スポンサー</span>
+      </div>
+      <div class="sp-item">
+        <div class="frame" id="psp2">
+          <img src="images/memories/photo9.jpg" alt="思い出⑨"
+               onerror="document.getElementById('psp2').classList.add('noph')">
+          <div class="ph"><span>📸</span><small>photo9.jpg</small></div>
+        </div>
+        <p class="cap">また会いたい場所</p>
+        <span class="sp-t">スポンサー</span>
+      </div>
+      <div class="sp-item">
+        <div class="frame" id="psp3">
+          <img src="images/memories/photo10.png" alt="思い出⑩"
+               onerror="document.getElementById('psp3').classList.add('noph')">
+          <div class="ph"><span>📸</span><small>photo10.png</small></div>
+        </div>
+        <p class="cap">感謝してるよ</p>
+        <span class="sp-t">スポンサー</span>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /.page-wrap -->
+
+<!-- フローティング広告 -->
+<div class="float-ad" id="floatAd" style="display:none">
+  <button class="close-x" onclick="document.getElementById('floatAd').style.display='none'">✕</button>
+  <div class="frame" id="fa-p">
+    <img src="images/memories/photo1.png" alt="思い出①"
+         onerror="document.getElementById('fa-p').classList.add('noph')">
+    <div class="ph"><span>📸</span><small>photo1.png</small></div>
+  </div>
+  <span class="f-label">スポンサー</span>
+  <p>🛑 本当に注文する前にカゴを確認しましたか？</p>
+</div>
+
+<div id="footer-mount"></div>
+
+<script>
+document.getElementById('header-mount').innerHTML = buildHeader('product');
+document.getElementById('footer-mount').innerHTML = buildFooter();
+
+// ---- 商品読み込み ----
+const params = new URLSearchParams(location.search);
+const pid = parseInt(params.get('id'));
+const product = PRODUCTS.find(p => p.id === pid);
+
+if (!product) {
+  document.querySelector('.page-wrap').innerHTML = `
+    <div style="text-align:center;padding:60px;background:#fff;border-radius:4px">
+      <p style="font-size:60px">😕</p>
+      <h2>商品が見つかりません</h2>
+      <p style="margin:15px 0;color:#565959">指定された商品IDが存在しません。</p>
+      <a href="index.html" style="color:var(--link)">トップページへ戻る</a>
+    </div>`;
+} else {
+  const soldOut = product.soldOut || product.stock === 0;
+  const disc = product.origPrice ? Math.round((1 - product.price / product.origPrice) * 100) : 0;
+
+  document.title = product.name + ' — Anazon';
+  document.getElementById('bc-cat').textContent = product.category;
+  document.getElementById('bc-name').textContent = product.name.slice(0, 30) + '…';
+  document.getElementById('det-img').src = product.img;
+  document.getElementById('det-img').alt = product.name;
+  document.getElementById('det-cat').textContent = product.category;
+  document.getElementById('det-title').textContent = product.name;
+  document.getElementById('det-stars').textContent = renderStars(product.rating);
+  document.getElementById('det-rating').textContent = product.rating;
+  document.getElementById('det-revcnt').textContent = `(${product.revCnt.toLocaleString()} 件のレビュー)`;
+  document.getElementById('det-price').textContent = soldOut ? '在庫切れ' : '¥' + product.price.toLocaleString();
+  if (product.origPrice) {
+    document.getElementById('det-orig').textContent = '¥' + product.origPrice.toLocaleString();
+    document.getElementById('det-disc').textContent = `-${disc}%`;
+  }
+  document.getElementById('det-stock').innerHTML = soldOut
+    ? '<span class="no-stock">✕ 現在在庫切れです</span>'
+    : `<span class="in-stock">✓ 在庫あり（残り${product.stock}点）</span>`;
+  document.getElementById('det-desc').textContent = product.desc;
+  document.getElementById('det-feats').innerHTML = product.features.map(f => `<li>${f}</li>`).join('');
+  document.getElementById('bb-price').textContent = soldOut ? '在庫切れ' : '¥' + product.price.toLocaleString();
+
+  if (soldOut) {
+    document.getElementById('btn-add-cart').disabled = true;
+    document.getElementById('btn-buy-now').disabled = true;
+  }
+
+  // レビュー
+  const revMount = document.getElementById('reviews-mount');
+  if (product.reviews && product.reviews.length) {
+    revMount.innerHTML = product.reviews.map(r => `
+      <div class="review-card">
+        <div class="review-name">${r.name}</div>
+        <div class="p-card-stars" style="margin-bottom:6px">
+          <span class="stars">${renderStars(r.stars)}</span>
+        </div>
+        <p class="review-body">${r.body}</p>
+      </div>`).join('');
+  } else {
+    revMount.innerHTML = '<p style="color:#565959;padding:15px 0">まだレビューはありません。</p>';
+  }
+}
+
+// ---- モーダル制御 ----
+let pendingCartProduct = null;
+let timerInterval = null;
+
+function openModal() {
+  if (!product || product.soldOut || product.stock === 0) return;
+
+  // ランダムな思い出写真を選ぶ
+  const rnd = MEMORY_PHOTOS[Math.floor(Math.random() * MEMORY_PHOTOS.length)];
+  const frame = document.getElementById('modal-frame');
+  const img = document.getElementById('modal-photo');
+  frame.classList.remove('noph');
+  img.src = rnd.src;
+  img.onerror = () => frame.classList.add('noph');
+
+  // タイトル・本文をランダムに変える
+  const titles = [
+    'ちょっと待って！！！<br>この写真を見てから決めてください！',
+    'えっ本当に注文？<br>まずこの思い出を振り返って…',
+    '🛑 一時停止 🛑<br>この写真、覚えてますか？',
+    '注文の前に…<br>この思い出を見てください',
+  ];
+  const bodies = [
+    'この大切な思い出と引き換えに、本当に注文してしまいますか？（するべきです）',
+    'この瞬間を覚えていますか？注文しながら思い出してください。',
+    '結婚祝いです。どんな商品を選んでも喜んでもらえますよ！',
+    'あなたの選んだ贈り物は、きっと相手の心に残るはずです。',
+  ];
+  const ri = Math.floor(Math.random() * titles.length);
+  document.getElementById('modal-title').innerHTML = titles[ri];
+  document.getElementById('modal-body').textContent = bodies[ri];
+
+  // ボタンを3秒間無効化
+  const btn = document.getElementById('btn-dismiss');
+  const timerEl = document.getElementById('modal-timer');
+  btn.disabled = true;
+  let sec = 3;
+  timerEl.textContent = `※ ボタンが ${sec} 秒後に有効になります…`;
+  clearInterval(timerInterval);
+  timerInterval = setInterval(() => {
+    sec--;
+    if (sec <= 0) {
+      clearInterval(timerInterval);
+      btn.disabled = false;
+      timerEl.textContent = '→ 注文を続けることができます';
+    } else {
+      timerEl.textContent = `※ ボタンが ${sec} 秒後に有効になります…`;
+    }
+  }, 1000);
+
+  document.getElementById('memModal').classList.add('on');
+}
+
+function closeModal() {
+  clearInterval(timerInterval);
+  document.getElementById('memModal').classList.remove('on');
+}
+
+function doAddToCart() {
+  if (!product) return;
+  Cart.set(product);
+  closeModal();
+  window.location.href = 'cart.html';
+}
+
+// フローティング広告
+setTimeout(() => {
+  const ad = document.getElementById('floatAd');
+  if (ad) ad.style.display = 'block';
+}, 3000);
+</script>
+</body>
+</html>

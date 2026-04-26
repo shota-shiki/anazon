@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ご注文ありがとうございます — Anazon</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/data.js"></script>
+  <script src="js/common.js"></script>
+  <style>
+    /* 紙吹雪アニメーション */
+    .confetti-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: hidden; z-index: 9998; }
+    .confetti-piece { position: absolute; width: 10px; height: 10px; top: -20px; animation: fall linear forwards; }
+    @keyframes fall {
+      0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- 紙吹雪コンテナ -->
+<div class="confetti-container" id="confetti"></div>
+
+<div id="header-mount"></div>
+
+<div class="page-wrap">
+
+  <!-- ステップ表示 -->
+  <div class="steps mb15">
+    <div class="step done"><span class="sn">✓</span> カゴ</div>
+    <span class="step-sep">›</span>
+    <div class="step done"><span class="sn">✓</span> 配送先入力</div>
+    <span class="step-sep">›</span>
+    <div class="step active"><span class="sn">3</span> 注文完了 🎊</div>
+  </div>
+
+  <!-- ====================================================
+       完了ヒーローセクション
+       ==================================================== -->
+  <div class="complete-hero mb15">
+    <div class="complete-icon">🎊</div>
+    <h1 class="complete-title">ご注文ありがとうございます！</h1>
+    <p class="complete-msg" id="complete-msg">
+      素敵な贈り物をありがとう！<br>
+      ショータに注文通知が届きました。<br>
+      近いうちに連絡がいくかも（しれません）。<br><br>
+      <strong>本当に、結婚おめでとうございます 💍</strong>
+    </p>
+  </div>
+
+  <!-- ====================================================
+       注文詳細
+       ==================================================== -->
+  <div class="complete-detail mb15" id="complete-detail">
+    <h3>📋 注文詳細</h3>
+    <div id="order-rows"></div>
+  </div>
+
+  <!-- ====================================================
+       思い出ギャラリー — フルスケール爆撃
+       ==================================================== -->
+  <div class="memory-gallery mb15">
+    <h2 class="gallery-ttl">🎉 思い出ギャラリー 🎉</h2>
+    <p class="gallery-sub">注文完了のお礼に、全部の思い出写真を一挙公開します。ゆっくり見ていってね。</p>
+    <div class="gallery-grid" id="gallery-grid"></div>
+  </div>
+
+  <!-- ====================================================
+       スペシャルメッセージ
+       ==================================================== -->
+  <div class="mem-urgent" style="margin-top:0">
+    <div class="urg-tag">💌 FROM: ショータ</div>
+    <h2>おめでとう、本当に</h2>
+    <p style="font-size:16px; line-height:2; max-width:600px; margin:0 auto;">
+      このサイトを最後まで見てくれてありがとう。<br>
+      ふざけたサイトを一生懸命作ってしまいました。<br><br>
+      これからの人生、パートナーと一緒に<br>
+      たくさん笑って、たくさん食べて（二郎系も）、<br>
+      幸せに生きてください。<br><br>
+      お酒でも飲みながらまた話しましょう。<br>
+      いつでも呼んでください。<br><br>
+      <strong>— ショータより ❤️</strong>
+    </p>
+    <div class="urg-photos" style="margin-top:20px">
+      <div class="urg-photo">
+        <div class="frame" id="cmp0">
+          <img src="images/memories/photo1.png" alt="思い出①"
+               onerror="document.getElementById('cmp0').classList.add('noph')">
+          <div class="ph"><span>📸</span><small>photo1.png</small></div>
+        </div>
+        <p>ありがとう</p>
+      </div>
+      <div class="urg-photo">
+        <div class="frame" id="cmp1">
+          <img src="images/memories/photo5.jpg" alt="思い出⑤"
+               onerror="document.getElementById('cmp1').classList.add('noph')">
+          <div class="ph"><span>📸</span><small>photo5.jpg</small></div>
+        </div>
+        <p>大好きだよ</p>
+      </div>
+      <div class="urg-photo">
+        <div class="frame" id="cmp2">
+          <img src="images/memories/photo10.png" alt="思い出⑩"
+               onerror="document.getElementById('cmp2').classList.add('noph')">
+          <div class="ph"><span>📸</span><small>photo10.png</small></div>
+        </div>
+        <p>これからもよろしく</p>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center; padding:30px 0">
+    <a href="index.html"
+       style="display:inline-block;background:linear-gradient(to bottom,#f7dfa5,#f0c14b);
+              border:1px solid #a88734;border-radius:24px;padding:14px 40px;
+              font-size:16px;font-weight:bold;color:#0F1111;text-decoration:none">
+      🏠 トップページに戻る（もっと遊ぶ）
+    </a>
+  </div>
+
+</div><!-- /.page-wrap -->
+
+<div id="footer-mount"></div>
+
+<script>
+document.getElementById('header-mount').innerHTML = buildHeader('complete');
+document.getElementById('footer-mount').innerHTML = buildFooter();
+
+// ---- 注文データ読み込み ----
+const order = Order.get();
+
+if (order) {
+  document.getElementById('complete-msg').innerHTML = `
+    <strong>${order.name}</strong> さん、ご注文ありがとうございます！<br>
+    ショータに注文通知が届きました 📩<br><br>
+    注文ID: <strong>${order.orderId}</strong><br>
+    注文日時: ${order.orderedAt}<br><br>
+    <strong>結婚おめでとうございます！💍</strong>`;
+
+  const rows = document.getElementById('order-rows');
+  rows.innerHTML = `
+    <dl>
+      <div class="row"><dt>注文ID</dt><dd>${order.orderId}</dd></div>
+      <div class="row"><dt>注文日時</dt><dd>${order.orderedAt}</dd></div>
+      <div class="row"><dt>商品名</dt><dd>${order.product.name}</dd></div>
+      <div class="row"><dt>金額</dt><dd>¥${order.product.price.toLocaleString()}</dd></div>
+      <div class="row"><dt>お名前</dt><dd>${order.name}</dd></div>
+      <div class="row"><dt>配送先</dt><dd>〒${order.zip}<br>${order.pref}${order.city}${order.addr}</dd></div>
+      ${order.phone ? `<div class="row"><dt>電話番号</dt><dd>${order.phone}</dd></div>` : ''}
+      ${order.msg ? `<div class="row"><dt>メッセージ</dt><dd style="white-space:pre-wrap">${order.msg}</dd></div>` : ''}
+    </dl>`;
+}
+
+// ---- 思い出ギャラリー描画 ----
+const grid = document.getElementById('gallery-grid');
+grid.innerHTML = MEMORY_PHOTOS.map((p, i) => `
+  <div class="gal-item" id="gi${i}">
+    <img src="${p.src}" alt="${p.caption}" loading="lazy"
+         onerror="document.getElementById('gi${i}').classList.add('noph')">
+    <div class="cap">${p.caption}</div>
+    <div class="ph"><span>📸</span><strong>${p.caption}</strong><small>${p.src}</small></div>
+  </div>`).join('');
+
+// ---- 紙吹雪 ----
+(function launchConfetti() {
+  const container = document.getElementById('confetti');
+  const colors = ['#FF9900','#FFD814','#CC0C39','#00A8E1','#007600','#FF6B6B','#FCD34D'];
+  const shapes = ['■', '●', '▲', '★', '♦'];
+  for (let i = 0; i < 80; i++) {
+    const el = document.createElement('div');
+    el.className = 'confetti-piece';
+    el.textContent = shapes[Math.floor(Math.random() * shapes.length)];
+    el.style.left = Math.random() * 100 + 'vw';
+    el.style.color = colors[Math.floor(Math.random() * colors.length)];
+    el.style.fontSize = (8 + Math.random() * 12) + 'px';
+    el.style.animationDuration = (2 + Math.random() * 3) + 's';
+    el.style.animationDelay = (Math.random() * 2) + 's';
+    container.appendChild(el);
+  }
+  // 紙吹雪を5秒後に削除
+  setTimeout(() => container.remove(), 5000);
+})();
+</script>
+</body>
+</html>

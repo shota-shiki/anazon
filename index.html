@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anazon — 結婚祝い特集</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/data.js"></script>
+  <script src="js/common.js"></script>
+</head>
+<body>
+
+<!-- ====================================================
+     🎊 ウェルカムモーダル
+     ==================================================== -->
+<div class="welcome-ov" id="welcomeModal">
+  <div class="welcome-box">
+    <div class="welcome-hero">
+      <span class="w-emoji">💍</span>
+      <h2>ご結婚おめでとうございます！</h2>
+      <p>iOSはSafari、AndroidはChromeでご覧ください。</p>
+    </div>
+    <div class="welcome-body">
+      <p>
+        このサイトは、ショータが結婚祝いとして一生懸命作りました。<br><br>
+        しつこく出る馬淵軍団を回避し、気に入った商品をカートに入れて、商品を注文してみてください。<br>
+        ショータに通知が届き、結婚祝いとして後日プレゼントされます。<br><br>
+      </p>
+    </div>
+    <div class="welcome-ft">
+      <button onclick="closeWelcome()">🛍️ さっそく見てみる</button>
+    </div>
+  </div>
+</div>
+
+<div id="header-mount"></div>
+
+<div class="page-wrap">
+
+  <!-- ====================================================
+       📖 サイトの使い方
+       ==================================================== -->
+  <div class="site-guide">
+    <div class="sg-hd">
+      <span class="sg-tag">📖 ご利用ガイド</span>
+      <h2>Anazonの使い方</h2>
+    </div>
+    <div class="sg-steps">
+      <div class="sg-step">
+        <span class="sg-icon">🛍️</span>
+        <p>気になる商品を<br>選ぶ</p>
+      </div>
+      <span class="sg-arrow">›</span>
+      <div class="sg-step">
+        <span class="sg-icon">🛒</span>
+        <p>カートに<br>追加する</p>
+      </div>
+      <span class="sg-arrow">›</span>
+      <div class="sg-step">
+        <span class="sg-icon">📝</span>
+        <p>住所を入力し<br>注文を確定</p>
+      </div>
+      <span class="sg-arrow">›</span>
+      <div class="sg-step">
+        <span class="sg-icon">📩</span>
+        <p>ショータに<br>通知が届く</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====================================================
+       🍭 お菓子コーナー
+       ==================================================== -->
+  <section id="shokuhin">
+    <div class="sec-hd">
+      <h2 class="sec-title">🍽️ 食品コーナー</h2>
+      <a class="sec-link" href="#">すべて見る ›</a>
+    </div>
+    <div class="product-grid" id="grid-shokuhin"></div>
+  </section>
+
+  <!-- cb sentinel 1 -->
+  <div class="cb-sentinel" data-idx="0"></div>
+
+  <!-- ====================================================
+       📸 横スクロールアルバム
+       ==================================================== -->
+  <div class="mem-scroll">
+    <div class="mem-scroll-hd">
+      <span class="tag">スポンサー</span>
+    </div>
+    <div class="mem-scroll-track">
+      <div class="ms-item">
+        <div class="frame" id="ms0">
+          <img src="images/memories/photo4.jpg" alt="思い出④"
+               onerror="document.getElementById('ms0').classList.add('noph')">
+          <div class="ph"><span>📸</span><strong>思い出④</strong><small>photo4.jpg</small></div>
+        </div>
+        <p>志貴翔太</p>
+      </div>
+      <div class="ms-item">
+        <div class="frame" id="ms1">
+          <img src="images/memories/photo5.jpg" alt="思い出⑤"
+               onerror="document.getElementById('ms1').classList.add('noph')">
+          <div class="ph"><span>📸</span><strong>思い出⑤</strong><small>photo5.jpg</small></div>
+        </div>
+        <p>高橋利虎</p>
+      </div>
+      <div class="ms-item">
+        <div class="frame" id="ms2">
+          <img src="images/memories/photo6.jpg" alt="思い出⑥"
+               onerror="document.getElementById('ms2').classList.add('noph')">
+          <div class="ph"><span>📸</span><strong>思い出⑥</strong><small>photo6.jpg</small></div>
+        </div>
+        <p>鈴木礁介</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====================================================
+       🍶 SAKE & お酒コーナー
+       ==================================================== -->
+  <section id="sake">
+    <div class="sec-hd">
+      <h2 class="sec-title">🍶 酒コーナー</h2>
+      <a class="sec-link" href="#">すべて見る ›</a>
+    </div>
+    <div class="product-grid" id="grid-sake"></div>
+  </section>
+
+  <!-- cb sentinel 2 -->
+  <div class="cb-sentinel" data-idx="1"></div>
+
+  <!-- ====================================================
+       🍜 二郎系コーナー
+       ==================================================== -->
+  <section id="shokuzai">
+    <div class="sec-hd">
+      <h2 class="sec-title">🥬 食材コーナー</h2>
+      <a class="sec-link" href="#">すべて見る ›</a>
+    </div>
+    <div class="product-grid" id="grid-shokuzai"></div>
+  </section>
+
+  <!-- cb sentinel 3 -->
+  <div class="cb-sentinel" data-idx="2"></div>
+
+  <!-- ====================================================
+       🍱 フード & フィットネス
+       ==================================================== -->
+  <section id="adult">
+    <div class="sec-hd">
+      <h2 class="sec-title">🔞 アダルトコーナー</h2>
+      <a class="sec-link" href="#">すべて見る ›</a>
+    </div>
+    <div class="product-grid" id="grid-adult"></div>
+  </section>
+
+  <!-- ====================================================
+       📸 横スクロールアルバム②
+       ==================================================== -->
+  <div class="mem-scroll">
+    <div class="mem-scroll-hd">
+      <span class="tag">スポンサー</span>
+    </div>
+    <div class="mem-scroll-track">
+      <div class="ms-item">
+        <div class="frame" id="ms7">
+          <img src="images/memories/photo7.jpeg" alt="思い出⑦"
+               onerror="document.getElementById('ms7').classList.add('noph')">
+          <div class="ph"><span>📸</span><strong>思い出⑦</strong><small>photo7.jpeg</small></div>
+        </div>
+        <p>小林駿太</p>
+      </div>
+      <div class="ms-item">
+        <div class="frame" id="ms8">
+          <img src="images/memories/photo8.jpeg" alt="思い出⑧"
+               onerror="document.getElementById('ms8').classList.add('noph')">
+          <div class="ph"><span>📸</span><strong>思い出⑧</strong><small>photo8.jpeg</small></div>
+        </div>
+        <p>田中潮</p>
+      </div>
+      <div class="ms-item">
+        <div class="frame" id="ms9">
+          <img src="images/memories/photo9.jpg" alt="思い出⑨"
+               onerror="document.getElementById('ms9').classList.add('noph')">
+          <div class="ph"><span>📸</span><strong>思い出⑨</strong><small>photo9.jpg</small></div>
+        </div>
+        <p>橋本</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- cb sentinel 4 -->
+  <div class="cb-sentinel" data-idx="3"></div>
+
+  <!-- ====================================================
+       🎮 ゲーム & ライフスタイル
+       ==================================================== -->
+  <section id="other">
+    <div class="sec-hd">
+      <h2 class="sec-title">📦 その他コーナー</h2>
+      <a class="sec-link" href="#">すべて見る ›</a>
+    </div>
+    <div class="product-grid" id="grid-other"></div>
+  </section>
+
+  <!-- cb sentinel 5 -->
+  <div class="cb-sentinel" data-idx="4"></div>
+
+  <!-- ====================================================
+       🎬 スポンサー広告: 動画
+       ==================================================== -->
+  <div class="mem-video-sponsor">
+    <div class="sp-label-bar">
+      <span>スポンサー広告™</span>
+      <span class="sp-tag">PR</span>
+    </div>
+    <video id="mem-video" autoplay loop muted playsinline>
+      <source src="images/memories/movie1.MOV" type="video/mp4">
+    </video>
+    <button id="unmute-btn" onclick="toggleMute()" title="音声ON/OFF">🔇 タップして音声ON</button>
+  </div>
+
+</div><!-- /.page-wrap -->
+
+
+<div id="footer-mount"></div>
+
+<script>
+document.getElementById('header-mount').innerHTML = buildHeader('index');
+document.getElementById('footer-mount').innerHTML = buildFooter();
+
+// ウェルカムモーダル
+// sessionStorage に記録 → 同じタブセッション中は再表示しない
+let modalClosed = false;
+
+function closeWelcome() {
+  const m = document.getElementById('welcomeModal');
+  m.classList.remove('on');
+  setTimeout(() => m.style.display = 'none', 300);
+  modalClosed = true;
+  sessionStorage.setItem('anazon_modal_closed', '1');
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  if (sessionStorage.getItem('anazon_modal_closed')) {
+    // 閉じたことがある → 非表示のままフラグだけ立てる
+    document.getElementById('welcomeModal').style.display = 'none';
+    modalClosed = true;
+    return;
+  }
+  const m = document.getElementById('welcomeModal');
+  requestAnimationFrame(() => requestAnimationFrame(() => m.classList.add('on')));
+});
+
+// 商品グリッド描画
+const CAT_MAP = {
+  'grid-shokuhin': ['食品'],
+  'grid-sake':     ['酒'],
+  'grid-shokuzai': ['食材'],
+  'grid-adult':    ['アダルト'],
+  'grid-other':    ['その他'],
+};
+Object.entries(CAT_MAP).forEach(([gridId, cats]) => {
+  const el = document.getElementById(gridId);
+  if (!el) return;
+  const items = PRODUCTS.filter(p => cats.includes(p.category));
+  el.innerHTML = items.map(buildProductCard).join('');
+});
+
+// 音声トグル
+function toggleMute() {
+  const v = document.getElementById('mem-video');
+  const b = document.getElementById('unmute-btn');
+  if (!v) return;
+  v.muted = !v.muted;
+  b.textContent = v.muted ? '🔇 タップして音声ON' : '🔊 音声ON';
+}
+
+// ====================================================
+// フローティングキャラクター (シティヘブン風・段階表示)
+// ====================================================
+const FC_ENTRIES = [
+  { src: 'images/memories/photo1.png',  pos: 'bl' },
+  { src: 'images/memories/photo2.png',  pos: 'br' },
+  { src: 'images/memories/photo3.png',  pos: 'tr' },
+  { src: 'images/memories/photo10.png', pos: 'lc' },
+];
+let fcIdx = 0;  // 次に表示するキャラのインデックス
+
+function showNextFloatChar() {
+  if (!modalClosed) return;          // モーダルが閉じられるまで出さない
+  if (fcIdx >= FC_ENTRIES.length) return;  // 全員表示済み
+
+  const { src, pos } = FC_ENTRIES[fcIdx++];
+  const id = `fc-${pos}-${Date.now()}`;
+  const el = document.createElement('div');
+  el.className = `float-char ${pos}`;
+  el.id = id;
+  el.innerHTML = `
+    <img src="${src}" alt="">
+    <button class="float-char-close" id="fcbtn-${id}">✕</button>
+  `;
+  document.body.appendChild(el);
+
+  requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('show')));
+
+  // 閉じるボタンは1.5秒後に有効化
+  setTimeout(() => {
+    const btn = document.getElementById('fcbtn-' + id);
+    if (btn) btn.classList.add('ready');
+  }, 1500);
+
+  // 自動消滅なし — ×ボタンで閉じるまで表示し続ける
+  el.querySelector('.float-char-close').addEventListener('click', () => {
+    el.classList.remove('show');
+    setTimeout(() => el.remove(), 500);
+  });
+}
+
+// スクロール600pxごとに次の1人を表示
+let lastFcScroll = -800;
+window.addEventListener('scroll', () => {
+  if (!modalClosed) return;
+  if (window.scrollY - lastFcScroll >= 600) {
+    lastFcScroll = window.scrollY;
+    showNextFloatChar();
+  }
+}, { passive: true });
+
+// sentinel通過時にも次の1人を表示
+const sentinels = document.querySelectorAll('.cb-sentinel');
+const cbObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      showNextFloatChar();
+      cbObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.8 });
+sentinels.forEach(s => cbObs.observe(s));
+</script>
+</body>
+</html>

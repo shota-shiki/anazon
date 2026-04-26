@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>買い物カゴ — Anazon</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/data.js"></script>
+  <script src="js/common.js"></script>
+</head>
+<body>
+
+<div id="header-mount"></div>
+
+<div class="page-wrap">
+
+  <!-- ステップ表示 -->
+  <div class="steps mb15">
+    <div class="step active"><span class="sn">1</span> カゴ</div>
+    <span class="step-sep">›</span>
+    <div class="step"><span class="sn">2</span> 配送先入力</div>
+    <span class="step-sep">›</span>
+    <div class="step"><span class="sn">3</span> 注文完了</div>
+  </div>
+
+  <!-- ====================================================
+       思い出広告: カートに来てもまだ諦めない
+       ==================================================== -->
+  <div class="mem-urgent" style="margin-bottom:20px">
+    <div class="urg-tag">🚨 カートに商品があります！</div>
+    <h2>😱 まだ注文しなくていいですよ！？</h2>
+    <p>カートに入れただけでは注文になりません。でも本当に注文しますか？この写真を見てから決めてください。</p>
+    <div class="urg-photos">
+      <div class="urg-photo">
+        <div class="frame" id="cu0">
+          <img src="images/memories/photo2.png" alt="思い出②"
+               onerror="document.getElementById('cu0').classList.add('noph')">
+          <div class="ph"><span>📸</span><small>photo2.png</small></div>
+        </div>
+        <p>あの大切な日</p>
+      </div>
+      <div class="urg-photo">
+        <div class="frame" id="cu1">
+          <img src="images/memories/photo5.jpg" alt="思い出⑤"
+               onerror="document.getElementById('cu1').classList.add('noph')">
+          <div class="ph"><span>📸</span><small>photo5.jpg</small></div>
+        </div>
+        <p>笑いすぎた夜</p>
+      </div>
+      <div class="urg-photo">
+        <div class="frame" id="cu2">
+          <img src="images/memories/photo8.jpeg" alt="思い出⑧"
+               onerror="document.getElementById('cu2').classList.add('noph')">
+          <div class="ph"><span>📸</span><small>photo8.jpeg</small></div>
+        </div>
+        <p>いつまでも友達</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====================================================
+       カートメインエリア
+       ==================================================== -->
+  <div class="cart-wrap">
+    <div class="cart-main">
+      <h1 class="cart-ttl">🛒 買い物カゴ</h1>
+      <div id="cart-content"></div>
+      <!-- SP用チェックアウトボタン (サイドバー非表示時に表示) -->
+      <div class="cart-box-inline" id="cart-box-inline" style="display:none">
+        <h3>注文点数: <strong>1点</strong></h3>
+        <p class="total" id="cart-total-inline"></p>
+        <button class="btn-checkout" onclick="window.location.href='checkout.html'">
+          レジに進む →
+        </button>
+        <button class="btn-continue" onclick="window.location.href='index.html'">
+          買い物を続ける
+        </button>
+      </div>
+    </div>
+
+    <div class="cart-side">
+      <!-- 注文サマリーボックス -->
+      <div class="cart-box" id="cart-box" style="display:none">
+        <h3>注文点数: <strong>1点</strong></h3>
+        <p class="total" id="cart-total"></p>
+        <button class="btn-checkout" onclick="window.location.href='checkout.html'">
+          レジに進む →
+        </button>
+        <button class="btn-continue" onclick="window.location.href='index.html'">
+          買い物を続ける
+        </button>
+      </div>
+
+      <!-- 思い出サイドバー広告 -->
+      <div class="mem-sidebar" style="margin-top:15px">
+        <div class="mem-sidebar-hd">
+          <span>スポンサー広告</span>
+          <span>📢</span>
+        </div>
+        <div class="mem-sidebar-body">
+          <div class="frame" id="csb0">
+            <img src="images/memories/photo3.png" alt="思い出③"
+                 onerror="document.getElementById('csb0').classList.add('noph')">
+            <div class="ph"><span>📸</span><small>photo3.png</small></div>
+          </div>
+          <p>
+            <strong>「贈る君へ」</strong><br><br>
+            いろんな場所に行ったね。<br>
+            いろんな話をしたね。<br>
+            これからも変わらず仲良くしよう。<br><br>
+            — ショータより
+          </p>
+        </div>
+      </div>
+
+      <!-- 別の思い出広告 -->
+      <div class="mem-sidebar" style="margin-top:15px">
+        <div class="mem-sidebar-hd">
+          <span>プライム会員限定 思い出</span>
+          <span>⭐</span>
+        </div>
+        <div class="mem-sidebar-body">
+          <div class="frame" id="csb1">
+            <img src="images/memories/photo6.jpg" alt="思い出⑥"
+                 onerror="document.getElementById('csb1').classList.add('noph')">
+            <div class="ph"><span>📸</span><small>photo6.jpg</small></div>
+          </div>
+          <p>
+            <strong>今日の思い出：</strong><br>
+            「おめでとう！」<br><br>
+            通常会員: ¥0<br>
+            <span style="color:var(--price); font-weight:bold; font-size:16px">プライム会員: ¥0</span><br>
+            <small>(どちらも無料)</small>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====================================================
+       📸 思い出広告: 横スクロール
+       ==================================================== -->
+  <div class="mem-scroll" style="margin-top: 30px;">
+    <div class="mem-scroll-hd">
+      <span class="tag">スポンサー</span>
+      <h3>🛍️「カゴに入れた人はこんな思い出も見ています」</h3>
+    </div>
+    <div class="mem-scroll-track">
+      <div class="ms-item">
+        <div class="frame" id="cms0">
+          <img src="images/memories/photo1.png" alt="思い出①"
+               onerror="document.getElementById('cms0').classList.add('noph')">
+          <div class="ph"><span>📸</span><strong>思い出①</strong><small>photo1.png</small></div>
+        </div>
+        <p>最高の瞬間①</p>
+      </div>
+      <div class="ms-item">
+        <div class="frame" id="cms1">
+          <img src="images/memories/photo4.jpg" alt="思い出④"
+               onerror="document.getElementById('cms1').classList.add('noph')">
+          <div class="ph"><span>📸</span><strong>思い出④</strong><small>photo4.jpg</small></div>
+        </div>
+        <p>最高の瞬間②</p>
+      </div>
+      <div class="ms-item">
+        <div class="frame" id="cms2">
+          <img src="images/memories/photo7.jpeg" alt="思い出⑦"
+               onerror="document.getElementById('cms2').classList.add('noph')">
+          <div class="ph"><span>📸</span><strong>思い出⑦</strong><small>photo7.jpeg</small></div>
+        </div>
+        <p>最高の瞬間③</p>
+      </div>
+      <div class="ms-item">
+        <div class="frame" id="cms3">
+          <img src="images/memories/photo9.jpg" alt="思い出⑨"
+               onerror="document.getElementById('cms3').classList.add('noph')">
+          <div class="ph"><span>📸</span><strong>思い出⑨</strong><small>photo9.jpg</small></div>
+        </div>
+        <p>最高の瞬間④</p>
+      </div>
+      <div class="ms-item">
+        <div class="frame" id="cms4">
+          <img src="images/memories/photo10.png" alt="思い出⑩"
+               onerror="document.getElementById('cms4').classList.add('noph')">
+          <div class="ph"><span>📸</span><strong>思い出⑩</strong><small>photo10.png</small></div>
+        </div>
+        <p>最高の瞬間⑤</p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /.page-wrap -->
+
+<div id="footer-mount"></div>
+
+<script>
+document.getElementById('header-mount').innerHTML = buildHeader('cart');
+document.getElementById('footer-mount').innerHTML = buildFooter();
+
+const cartItem = Cart.get();
+const content = document.getElementById('cart-content');
+const box = document.getElementById('cart-box');
+
+if (!cartItem) {
+  content.innerHTML = `
+    <div class="cart-empty">
+      <div class="big">🛒</div>
+      <p>買い物カゴは空です。</p>
+      <a href="index.html" class="btn-checkout" style="display:inline-block;text-decoration:none;padding:12px 30px;border-radius:24px;
+         background:linear-gradient(to bottom,#f7dfa5,#f0c14b);border:1px solid #a88734;font-weight:bold;color:#0F1111">
+        商品を探す →
+      </a>
+    </div>`;
+} else {
+  const soldOut = cartItem.soldOut || cartItem.stock === 0;
+  content.innerHTML = `
+    <div class="cart-item">
+      <div class="ci-img">
+        <img src="${cartItem.img}" alt="${cartItem.name}">
+      </div>
+      <div class="ci-info">
+        <p class="ci-name"><a href="product.html?id=${cartItem.id}" style="color:var(--link)">${cartItem.name}</a></p>
+        ${cartItem.prime ? '<span class="p-prime">prime</span>' : ''}
+        <p class="ci-stock">✓ 在庫あり（残り${cartItem.stock}点）</p>
+        <p class="ci-price">¥${cartItem.price.toLocaleString()}</p>
+        <button class="ci-remove" onclick="removeItem()">削除</button>
+      </div>
+    </div>
+    <div class="cart-subtotal">
+      小計（1点）: <strong>¥${cartItem.price.toLocaleString()}</strong>
+    </div>`;
+
+  document.getElementById('cart-total').textContent = '¥' + cartItem.price.toLocaleString();
+  box.style.display = 'block';
+  // SP用インラインボタンも表示
+  const inlineBox = document.getElementById('cart-box-inline');
+  const inlineTotal = document.getElementById('cart-total-inline');
+  if (inlineBox && inlineTotal) {
+    inlineTotal.textContent = '¥' + cartItem.price.toLocaleString();
+    inlineBox.style.display = 'block';
+  }
+}
+
+function removeItem() {
+  Cart.clear();
+  window.location.reload();
+}
+</script>
+</body>
+</html>
