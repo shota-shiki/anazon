@@ -58,65 +58,17 @@
   </div>
 
   <!-- ====================================================
-       思い出ギャラリー — フルスケール爆撃
+       🎬 スポンサー広告: 動画
        ==================================================== -->
-  <div class="memory-gallery mb15">
-    <h2 class="gallery-ttl">🎉 思い出ギャラリー 🎉</h2>
-    <p class="gallery-sub">注文完了のお礼に、全部の思い出写真を一挙公開します。ゆっくり見ていってね。</p>
-    <div class="gallery-grid" id="gallery-grid"></div>
-  </div>
-
-  <!-- ====================================================
-       スペシャルメッセージ
-       ==================================================== -->
-  <div class="mem-urgent" style="margin-top:0">
-    <div class="urg-tag">💌 FROM: ショータ</div>
-    <h2>おめでとう、本当に</h2>
-    <p style="font-size:16px; line-height:2; max-width:600px; margin:0 auto;">
-      このサイトを最後まで見てくれてありがとう。<br>
-      ふざけたサイトを一生懸命作ってしまいました。<br><br>
-      これからの人生、パートナーと一緒に<br>
-      たくさん笑って、たくさん食べて（二郎系も）、<br>
-      幸せに生きてください。<br><br>
-      お酒でも飲みながらまた話しましょう。<br>
-      いつでも呼んでください。<br><br>
-      <strong>— ショータより ❤️</strong>
-    </p>
-    <div class="urg-photos" style="margin-top:20px">
-      <div class="urg-photo">
-        <div class="frame" id="cmp0">
-          <img src="images/memories/photo1.png" alt="思い出①"
-               onerror="document.getElementById('cmp0').classList.add('noph')">
-          <div class="ph"><span>📸</span><small>photo1.png</small></div>
-        </div>
-        <p>ありがとう</p>
-      </div>
-      <div class="urg-photo">
-        <div class="frame" id="cmp1">
-          <img src="images/memories/photo5.jpg" alt="思い出⑤"
-               onerror="document.getElementById('cmp1').classList.add('noph')">
-          <div class="ph"><span>📸</span><small>photo5.jpg</small></div>
-        </div>
-        <p>大好きだよ</p>
-      </div>
-      <div class="urg-photo">
-        <div class="frame" id="cmp2">
-          <img src="images/memories/photo10.png" alt="思い出⑩"
-               onerror="document.getElementById('cmp2').classList.add('noph')">
-          <div class="ph"><span>📸</span><small>photo10.png</small></div>
-        </div>
-        <p>これからもよろしく</p>
-      </div>
+  <div class="mem-video-sponsor">
+    <div class="sp-label-bar">
+      <span>スポンサー広告™</span>
+      <span class="sp-tag">PR</span>
     </div>
-  </div>
-
-  <div style="text-align:center; padding:30px 0">
-    <a href="index.html"
-       style="display:inline-block;background:linear-gradient(to bottom,#f7dfa5,#f0c14b);
-              border:1px solid #a88734;border-radius:24px;padding:14px 40px;
-              font-size:16px;font-weight:bold;color:#0F1111;text-decoration:none">
-      🏠 トップページに戻る（もっと遊ぶ）
-    </a>
+    <video id="mem-video" autoplay loop muted playsinline>
+      <source src="images/memories/movie1.MOV" type="video/mp4">
+    </video>
+    <button id="unmute-btn" onclick="toggleMute()" title="音声ON/OFF">🔇 タップして音声ON</button>
   </div>
 
 </div><!-- /.page-wrap -->
@@ -161,6 +113,15 @@ grid.innerHTML = MEMORY_PHOTOS.map((p, i) => `
     <div class="cap">${p.caption}</div>
     <div class="ph"><span>📸</span><strong>${p.caption}</strong><small>${p.src}</small></div>
   </div>`).join('');
+
+// 音声トグル
+function toggleMute() {
+  const v = document.getElementById('mem-video');
+  const b = document.getElementById('unmute-btn');
+  if (!v) return;
+  v.muted = !v.muted;
+  b.textContent = v.muted ? '🔇 タップして音声ON' : '🔊 音声ON';
+}
 
 // ---- 紙吹雪 ----
 (function launchConfetti() {

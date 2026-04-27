@@ -84,7 +84,7 @@
     <!-- 買い物ボックス -->
     <div class="buy-box">
       <p class="buy-box-price" id="bb-price"></p>
-      <p class="buy-box-delivery">✅ 明日中にお届け（プライム会員）</p>
+      <p class="buy-box-delivery">✅ 近日中にお届け（プライム会員）</p>
       <button class="btn-cart" id="btn-add-cart" onclick="openModal()">🛒 カートに追加</button>
       <button class="btn-buynow" id="btn-buy-now" onclick="openModal()">⚡ 今すぐ買う</button>
       <p class="buy-box-secure" style="margin-top:10px; font-size:12px; color:#565959;">
@@ -92,45 +92,6 @@
       </p>
       <hr style="margin: 12px 0; border-color:#EAEDED">
       <p style="font-size:12px; color:#565959;">出品者: <a href="#" style="color:var(--link)">Anazon直営店</a></p>
-    </div>
-  </div>
-
-  <!-- ====================================================
-       📸 思い出広告: サイドっぽいバナー
-       ==================================================== -->
-  <div class="mem-banner mb30">
-    <div class="mem-banner-hd">
-      <h3>💡「この商品を見た人は思い出のことも考えています」</h3>
-      <span class="sp-tag">スポンサー</span>
-    </div>
-    <div class="mem-banner-body">
-      <div class="mem-banner-photos">
-        <div class="mem-banner-photo">
-          <div class="frame" id="pb0">
-            <img src="images/memories/photo4.jpg" alt="思い出④"
-                 onerror="document.getElementById('pb0').classList.add('noph')">
-            <div class="ph"><span>📸</span><small>photo4.jpg</small></div>
-          </div>
-          <p>あの頃の思い出</p>
-        </div>
-        <div class="mem-banner-photo">
-          <div class="frame" id="pb1">
-            <img src="images/memories/photo5.jpg" alt="思い出⑤"
-                 onerror="document.getElementById('pb1').classList.add('noph')">
-            <div class="ph"><span>📸</span><small>photo5.jpg</small></div>
-          </div>
-          <p>宝物の一枚</p>
-        </div>
-      </div>
-      <div class="mem-banner-copy">
-        <h2>🛒 注文する前に<br>一呼吸おこう</h2>
-        <p>
-          贈り物、本当にこれでいいですか？<br>
-          まだ変更できますよ。上のカテゴリから<br>
-          もっとよいものが見つかるかも。<br><br>
-          <strong>（いや、なんでもいいので贈ってください）</strong>
-        </p>
-      </div>
     </div>
   </div>
 
@@ -144,65 +105,7 @@
     <div id="reviews-mount"></div>
   </div>
 
-  <!-- ====================================================
-       📸 思い出広告: スポンサード
-       ==================================================== -->
-  <div class="mem-sponsored mb30">
-    <p class="sp-label">スポンサー</p>
-    <h3>🎁「この商品と一緒によく購入されている思い出」</h3>
-    <div class="sp-grid">
-      <div class="sp-item">
-        <div class="frame" id="psp0">
-          <img src="images/memories/photo7.jpeg" alt="思い出⑦"
-               onerror="document.getElementById('psp0').classList.add('noph')">
-          <div class="ph"><span>📸</span><small>photo7.jpeg</small></div>
-        </div>
-        <p class="cap">みんなで笑った日</p>
-        <span class="sp-t">スポンサー</span>
-      </div>
-      <div class="sp-item">
-        <div class="frame" id="psp1">
-          <img src="images/memories/photo8.jpeg" alt="思い出⑧"
-               onerror="document.getElementById('psp1').classList.add('noph')">
-          <div class="ph"><span>📸</span><small>photo8.jpeg</small></div>
-        </div>
-        <p class="cap">かけがえない時間</p>
-        <span class="sp-t">スポンサー</span>
-      </div>
-      <div class="sp-item">
-        <div class="frame" id="psp2">
-          <img src="images/memories/photo9.jpg" alt="思い出⑨"
-               onerror="document.getElementById('psp2').classList.add('noph')">
-          <div class="ph"><span>📸</span><small>photo9.jpg</small></div>
-        </div>
-        <p class="cap">また会いたい場所</p>
-        <span class="sp-t">スポンサー</span>
-      </div>
-      <div class="sp-item">
-        <div class="frame" id="psp3">
-          <img src="images/memories/photo10.png" alt="思い出⑩"
-               onerror="document.getElementById('psp3').classList.add('noph')">
-          <div class="ph"><span>📸</span><small>photo10.png</small></div>
-        </div>
-        <p class="cap">感謝してるよ</p>
-        <span class="sp-t">スポンサー</span>
-      </div>
-    </div>
-  </div>
-
 </div><!-- /.page-wrap -->
-
-<!-- フローティング広告 -->
-<div class="float-ad" id="floatAd" style="display:none">
-  <button class="close-x" onclick="document.getElementById('floatAd').style.display='none'">✕</button>
-  <div class="frame" id="fa-p">
-    <img src="images/memories/photo1.png" alt="思い出①"
-         onerror="document.getElementById('fa-p').classList.add('noph')">
-    <div class="ph"><span>📸</span><small>photo1.png</small></div>
-  </div>
-  <span class="f-label">スポンサー</span>
-  <p>🛑 本当に注文する前にカゴを確認しましたか？</p>
-</div>
 
 <div id="footer-mount"></div>
 
@@ -277,30 +180,14 @@ let timerInterval = null;
 function openModal() {
   if (!product || product.soldOut || product.stock === 0) return;
 
-  // ランダムな思い出写真を選ぶ
-  const rnd = MEMORY_PHOTOS[Math.floor(Math.random() * MEMORY_PHOTOS.length)];
   const frame = document.getElementById('modal-frame');
   const img = document.getElementById('modal-photo');
   frame.classList.remove('noph');
-  img.src = rnd.src;
+  img.src = 'images/memories/photo11.JPG';
   img.onerror = () => frame.classList.add('noph');
 
-  // タイトル・本文をランダムに変える
-  const titles = [
-    'ちょっと待って！！！<br>この写真を見てから決めてください！',
-    'えっ本当に注文？<br>まずこの思い出を振り返って…',
-    '🛑 一時停止 🛑<br>この写真、覚えてますか？',
-    '注文の前に…<br>この思い出を見てください',
-  ];
-  const bodies = [
-    'この大切な思い出と引き換えに、本当に注文してしまいますか？（するべきです）',
-    'この瞬間を覚えていますか？注文しながら思い出してください。',
-    '結婚祝いです。どんな商品を選んでも喜んでもらえますよ！',
-    'あなたの選んだ贈り物は、きっと相手の心に残るはずです。',
-  ];
-  const ri = Math.floor(Math.random() * titles.length);
-  document.getElementById('modal-title').innerHTML = titles[ri];
-  document.getElementById('modal-body').textContent = bodies[ri];
+  document.getElementById('modal-title').innerHTML = 'ちょっと待って！！！<br>この写真を見てから決めてください！';
+  document.getElementById('modal-body').textContent = 'この大切な思い出と引き換えに、本当に注文してしまいますか？（するべきです）';
 
   // ボタンを3秒間無効化
   const btn = document.getElementById('btn-dismiss');
@@ -335,11 +222,6 @@ function doAddToCart() {
   window.location.href = 'cart.html';
 }
 
-// フローティング広告
-setTimeout(() => {
-  const ad = document.getElementById('floatAd');
-  if (ad) ad.style.display = 'block';
-}, 3000);
 </script>
 </body>
 </html>
