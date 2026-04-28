@@ -28,9 +28,9 @@ const CONFIG = {
      4. 下記の YOUR_～ を実際のIDに変更してください
   */
   emailjs: {
-    serviceId:  'YOUR_SERVICE_ID',
-    templateId: 'YOUR_TEMPLATE_ID',
-    publicKey:  'YOUR_PUBLIC_KEY',
+    serviceId:  'service_an5jwq8',
+    templateId: 'template_q2iavqi',
+    publicKey:  'JwWyL2TcinThOfyWK',
   }
 };
 
